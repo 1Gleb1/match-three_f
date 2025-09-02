@@ -204,7 +204,12 @@ export class Game {
 			const specialVal = 100 * (this.specialUid + 1) + (sp.base % 100);
 			this.specialUid++;
 			this.matrix[sp.row][sp.column] = specialVal;
-			this.lockedThisDrop.add(`${sp.row}:${sp.column}`);
+			// Lock only if no empty cells exist below; otherwise let it fall
+			let hasEmptyBelow = false;
+			for (let r = sp.row + 1; r < this.rowsCount; r++) {
+				if (this.matrix[r][sp.column] === null) { hasEmptyBelow = true; break; }
+			}
+			if (!hasEmptyBelow) this.lockedThisDrop.add(`${sp.row}:${sp.column}`);
 		}
 
 		return removedCount;
