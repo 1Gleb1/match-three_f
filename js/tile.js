@@ -3,10 +3,39 @@ export class Tile {
 		this.handleTileClick = handleTileClick;
 		this.tileElement = document.createElement('div');
 		this.tileElement.classList.add('tile');
-		this.tileElement.classList.add(`tile${value}`);
+		this.setValue(value);
 		this.setPositionBy(row, column);
 		wrap.append(this.tileElement);
 		this.tileElement.addEventListener('click', this.clickHandler);
+	}
+
+	setValue(value) {
+		const previous = this.value;
+		this.value = value;
+		for (let i = 1; i <= 7; i++) this.tileElement.classList.remove(`tile${i}`);
+		this.tileElement.classList.remove('special');
+		this.tileElement
+			.querySelectorAll('.aura, .shimmer')
+			.forEach(el => el.remove());
+		const abs = Math.abs(value);
+		const base = abs > 100 ? abs % 100 : abs;
+		const isSpecial = abs > 100;
+		this.tileElement.classList.add(`tile${base}`);
+		if (isSpecial) {
+			this.tileElement.classList.add('special');
+			const aura = document.createElement('div');
+			aura.className = 'aura';
+			const shimmer = document.createElement('div');
+			shimmer.className = 'shimmer';
+			this.tileElement.appendChild(aura);
+			this.tileElement.appendChild(shimmer);
+		}
+
+		// If newly became special, request a one-drop-cycle row lock
+		const prevAbs = previous === undefined ? null : Math.abs(previous);
+		// if ((prevAbs === null || prevAbs <= 100) && abs > 100) {
+		// 	this.lockRowForNextDrop = true;
+		// }
 	}
 
 	setPositionBy(row, column) {

@@ -24,7 +24,7 @@ body {
 
 .health-row {
 	display: grid;
-	grid-template-columns: 70px 1fr;
+	grid-template-columns: 70px 1fr auto;
 	align-items: center;
 	gap: 8px;
 	margin-bottom: 6px;
@@ -77,6 +77,26 @@ body {
 	color: #ffffe0;
 }
 
+.enemy-state {
+	margin-left: 6px;
+	display: flex;
+	gap: 6px;
+	font-size: 12px;
+	opacity: 0.9;
+}
+
+.enemy-state .status {
+	padding: 2px 6px;
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	border-radius: 4px;
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.enemy-state .timer {
+	min-width: 36px;
+	text-align: right;
+}
+
 .wrap {
 	position: relative;
 	width: 90vmin;
@@ -113,6 +133,93 @@ body {
 	border: 3px solid #ffffe0;
 }
 
+.tile.special {
+	box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4) inset,
+		0 0 12px rgba(255, 255, 255, 0.7);
+	animation: pulse 1.6s infinite ease-in-out;
+}
+
+.tile.special::after {
+	content: '*';
+	position: absolute;
+	color: #353535;
+	font-weight: 700;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.tile.special .aura {
+	position: absolute;
+	left: -6px;
+	top: -6px;
+	right: -6px;
+	bottom: -6px;
+	border-radius: 50%;
+	background: radial-gradient(
+		circle,
+		rgba(255, 255, 255, 0.55) 0%,
+		rgba(255, 255, 255, 0.15) 40%,
+		rgba(255, 255, 255, 0) 60%
+	);
+	filter: blur(2px);
+	opacity: 0.7;
+	animation: aura-breathe 2.2s infinite ease-in-out;
+	pointer-events: none;
+}
+
+.tile.special .shimmer {
+	position: absolute;
+	left: -10%;
+	top: -10%;
+	width: 120%;
+	height: 120%;
+	border-radius: 50%;
+	background: conic-gradient(
+		from 0deg,
+		rgba(255, 255, 255, 0),
+		rgba(255, 255, 255, 0.35),
+		rgba(255, 255, 255, 0) 30%
+	);
+	animation: rotate 2.8s linear infinite;
+	pointer-events: none;
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35) inset,
+			0 0 10px rgba(255, 255, 255, 0.6);
+	}
+	50% {
+		box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) inset,
+			0 0 16px rgba(255, 255, 255, 0.9);
+	}
+}
+
+@keyframes aura-breathe {
+	0%,
+	100% {
+		opacity: 0.5;
+		transform: scale(0.95);
+	}
+	50% {
+		opacity: 0.9;
+		transform: scale(1.05);
+	}
+}
+
 .tile.hide {
 	opacity: 0;
 	animation: hide 200ms;
@@ -125,31 +232,38 @@ body {
 }
 
 .tile1 {
-	background-color: #ffe4b2;
+	/* Dragon Slave - Fire */
+	background-color: #ff5722;
 }
 
 .tile2 {
-	background-color: #ffa07a;
+	/* Insatiable Hunger - Lifesteal */
+	background-color: #2ecc71;
 }
 
 .tile3 {
-	background-color: #98fb98;
+	/* Crystal Nova - AoE slow */
+	background-color: #9be7ff;
 }
 
 .tile4 {
-	background-color: #7ec8e3;
+	/* Frost Blast - Strong slow */
+	background-color: #2196f3;
 }
 
 .tile5 {
-	background-color: #4d6fac;
+	/* Magic Missile - Arcane */
+	background-color: #8e44ad;
 }
 
 .tile6 {
-	background-color: #9370db;
+	/* Splinter Blast - Shards */
+	background-color: #ffeb3b;
 }
 
-.tile7 {
-	background-color: #ffb6c1;
+tile7 {
+	/* Neutral */
+	background-color: #bdbdbd;
 }
 
 .end-state {
