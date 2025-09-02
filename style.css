@@ -1,0 +1,167 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	overflow: hidden;
+	background-color: #353535;
+}
+
+.hud {
+	width: 90vmin;
+	max-width: 500px;
+	margin-bottom: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #ffffe0;
+}
+
+.health-row {
+	display: grid;
+	grid-template-columns: 70px 1fr;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 6px;
+}
+
+.health-row .label {
+	font-size: 14px;
+	opacity: 0.9;
+}
+
+.health-bar {
+	position: relative;
+	height: 18px;
+	background: rgba(255, 255, 255, 0.12);
+	border-radius: 10px;
+	overflow: hidden;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.health-bar .health-fill {
+	height: 100%;
+	background: linear-gradient(90deg, #26d07c, #35c46f);
+	transition: width 200ms ease;
+}
+
+.health-bar.enemy .health-fill {
+	background: linear-gradient(90deg, #d02626, #c43535);
+}
+
+.health-bar .health-text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+.score {
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 48px;
+	color: #ffffe0;
+}
+
+.wrap {
+	position: relative;
+	width: 90vmin;
+	height: 90vmin;
+	max-width: 500px;
+	max-height: 500px;
+}
+
+.tile {
+	--size: 12.5%;
+	--row: 0;
+	--column: 0;
+	position: absolute;
+	box-sizing: border-box;
+	width: var(--size);
+	height: var(--size);
+	top: calc(var(--row) * (var(--size)));
+	left: calc(var(--column) * (var(--size)));
+	cursor: pointer;
+	border: 3px solid #353535;
+	border-radius: 50%;
+	transition-property: top, left;
+	transition-duration: 140ms;
+	animation: show 50ms;
+}
+
+@keyframes show {
+	0% {
+		opacity: 0.5;
+	}
+}
+
+.tile.selected {
+	border: 3px solid #ffffe0;
+}
+
+.tile.hide {
+	opacity: 0;
+	animation: hide 200ms;
+}
+
+@keyframes hide {
+	0% {
+		opacity: 1;
+	}
+}
+
+.tile1 {
+	background-color: #ffe4b2;
+}
+
+.tile2 {
+	background-color: #ffa07a;
+}
+
+.tile3 {
+	background-color: #98fb98;
+}
+
+.tile4 {
+	background-color: #7ec8e3;
+}
+
+.tile5 {
+	background-color: #4d6fac;
+}
+
+.tile6 {
+	background-color: #9370db;
+}
+
+.tile7 {
+	background-color: #ffb6c1;
+}
+
+.end-state {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(0, 0, 0, 0.6);
+	color: #ffffe0;
+	padding: 16px 24px;
+	border-radius: 8px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
